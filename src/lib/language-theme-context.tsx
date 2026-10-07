@@ -25,17 +25,84 @@ const DICTIONARY: Record<Language, Record<string, string>> = {
     'nav.track_status': '🔍 Track Status',
     'nav.apply_now': 'Apply Now ✍️',
     'nav.home': 'Home',
-    'nav.about': 'About',
+    'nav.about': 'About Us',
     'nav.academics': 'Academics',
     'nav.school_life': 'School Life',
     'nav.admissions': 'Admissions',
-    'nav.news': 'News',
+    'nav.news': 'Latest News',
     'nav.contact': 'Contact Us',
 
-    // School Title
+    // School Branding
     'school.title': 'New Life Language School',
     'school.tagline': 'Empowering Leaders of Tomorrow',
     'school.portal_sub': 'Official School Portal 2026/2027',
+
+    // Homepage Hero Section
+    'hero.badge': 'Admissions Open for 2027/2028 Academic Year',
+    'hero.title_part1': 'Building Tomorrow\'s ',
+    'hero.title_part2': 'Leaders ',
+    'hero.title_part3': 'Today',
+    'hero.desc': 'New Life Language School provides a comprehensive, nurturing educational environment from Early Years through Preparatory, cultivating confident, knowledgeable, and responsible young learners.',
+    'hero.btn_apply': 'Apply Now Online',
+    'hero.btn_discover': 'Discover NLLS',
+
+    // Stats Bar
+    'stats.students': 'Active Students',
+    'stats.teachers': 'Qualified Teachers',
+    'stats.grades': 'Grade Levels',
+    'stats.years': 'Years of Excellence',
+
+    // About Section
+    'about.subtitle': 'About Our School',
+    'about.title': 'A Foundation for Lifelong Learning',
+    'about.p1': 'Since our founding, New Life Language School has been committed to providing an exceptional educational experience that blends academic rigour with character development.',
+    'about.p2': 'Located in Egypt, we serve a diverse community of learners from Primary 1 through Preparatory 3 with dedicated educators creating a supportive environment.',
+    'about.mission_title': 'Our Mission',
+    'about.mission_desc': 'To develop well-rounded, bilingual learners prepared for global citizenship.',
+    'about.vision_title': 'Our Vision',
+    'about.vision_desc': 'To be a leading private language school recognized for educational excellence.',
+    'about.values_title': 'Our Values',
+    'about.values_desc': 'Integrity, excellence, respect, responsibility, and lifelong learning.',
+    'about.approach_title': 'Our Approach',
+    'about.approach_desc': 'Student-centred learning with modern interactive methodologies.',
+
+    // Academics Section
+    'acad.subtitle': 'Our Programs',
+    'acad.title': 'Academic Stages & Curriculum',
+    'acad.desc': 'We offer a comprehensive curriculum across two main educational stages, preparing students for academic success at every level.',
+    'acad.early': 'Early Years',
+    'acad.primary': 'Primary Stage (Grades 1..6)',
+    'acad.prep': 'Preparatory Stage (Grades 1..3)',
+
+    // Contact Form
+    'contact.subtitle': 'Direct Communication Channel',
+    'contact.title': 'Get in Touch with NLLS Leadership',
+    'contact.desc': 'Have questions regarding admissions, academic programs, or campus visits? Our admissions team responds within 24 hours.',
+    'contact.hqs': 'School Campus Headquarters',
+    'contact.loc_lbl': 'Campus Location:',
+    'contact.loc_val': '90th Street, 5th Settlement, New Cairo, Egypt',
+    'contact.phone_lbl': 'Direct Phone Lines:',
+    'contact.email_lbl': 'Official Inquiry Emails:',
+    'contact.hours_lbl': 'Working Administration Hours:',
+    'contact.hours_val': 'Sunday – Thursday: 07:30 AM – 03:30 PM',
+    'contact.form_title': 'Send Us a Direct Message',
+    'contact.first_name': 'First Name',
+    'contact.last_name': 'Last Name',
+    'contact.email': 'Email Address',
+    'contact.phone': 'Phone Number',
+    'contact.dept': 'Inquiry Department',
+    'contact.dept_adm': 'Admissions & New Enrolment (Primary 1..6 & Prep 1..3)',
+    'contact.dept_acad': 'Academic Curriculum & Examinations',
+    'contact.dept_affairs': 'Student Affairs & Disciplinary Records',
+    'contact.dept_gen': 'General Administrative Inquiry',
+    'contact.message': 'Your Detailed Message',
+    'contact.btn_send': 'Send Inquiry Message →',
+
+    // Footer
+    'footer.quick': 'Quick Links',
+    'footer.acad': 'Academic Stages',
+    'footer.portal': 'Portal Login',
+    'footer.rights': '© 2026 New Life Language School. All rights reserved.',
 
     // Portal Navigation
     'portal.dashboard': 'Dashboard',
@@ -74,6 +141,9 @@ const DICTIONARY: Record<Language, Record<string, string>> = {
     'dashboard.new_announcement': 'New Announcement',
     'dashboard.add_student': 'Add Student',
     'dashboard.quick_actions': 'Quick Actions',
+    'dashboard.today_overview': 'Today\'s Overview',
+    'dashboard.stage_perf': 'Stage Performance',
+    'dashboard.upcoming_exams': 'Upcoming Exams',
 
     // Public Admissions Page
     'adm.title': 'Student Admission Application',
@@ -107,13 +177,80 @@ const DICTIONARY: Record<Language, Record<string, string>> = {
     'nav.academics': 'الأكاديميات',
     'nav.school_life': 'الحياة المدرسية',
     'nav.admissions': 'القبول والتسجيل',
-    'nav.news': 'الأخبار',
+    'nav.news': 'آخر الأخبار',
     'nav.contact': 'اتصل بنا',
 
-    // School Title
+    // School Branding
     'school.title': 'مدرسة نيو لايف لغات',
     'school.tagline': 'بناء قادة الغد بالتميز والابتكار',
     'school.portal_sub': 'البوابة الرسمية للمدرسة 2026/2027',
+
+    // Homepage Hero Section
+    'hero.badge': 'باب القبول والتسجيل مفتوح للعام الدراسي 2027/2028',
+    'hero.title_part1': 'نصنع اليوم ',
+    'hero.title_part2': 'قادة ',
+    'hero.title_part3': 'المستقبل',
+    'hero.desc': 'توفر مدرسة نيو لايف لغات بيئة تعليمية متكاملة ومحفزة من المرحلة الابتدائية وحتى الإعدادية لتنشئة جيل واثق ومتميز أكاديمياً وتربوياً.',
+    'hero.btn_apply': 'التقديم الإلكتروني الآن',
+    'hero.btn_discover': 'اكتشف مدرسة نيو لايف',
+
+    // Stats Bar
+    'stats.students': 'طالب مقيد بالمدرسة',
+    'stats.teachers': 'معلم ومربٍ قدير',
+    'stats.grades': 'مرحلة وصف دراسي',
+    'stats.years': 'عاماً من التميز التعليمي',
+
+    // About Section
+    'about.subtitle': 'نبذة عن المدرسة',
+    'about.title': 'أساس رصين للتعلم مدى الحياة',
+    'about.p1': 'منذ تأسيس مدرسة نيو لايف لغات، التزمنا بتوفير تجربة تعليمية استثنائية تجمع بين الرصانة الأكاديمية والبناء التربوي والأخلاقي.',
+    'about.p2': 'نخدم مجتمعاً تعليمياً متعدداً بدءاً من الابتدائي 1 حتى الإعدادي 3 في بيئة داعمة تشجع كل طالب على التميز والتألق.',
+    'about.mission_title': 'رسالتنا',
+    'about.mission_desc': 'إعداد طلاب متعددي اللغات، متميزين أكاديمياً ومؤهلين للمواطنة العالمية.',
+    'about.vision_title': 'رؤيتنا',
+    'about.vision_desc': 'أن نكون مدرسة اللغات الرائدة والمتميزة في تقديم التعليم الحديث والتطوير المستمر.',
+    'about.values_title': 'قيمنا',
+    'about.values_desc': 'النزاهة، التميز، الاحترام، المسؤولية، والتعلم المستمر.',
+    'about.approach_title': 'نهجنا التعليمي',
+    'about.approach_desc': 'تعلم متمركز حول الطالب باستخدام أحدث الوسائل التفاعلية والتقنيات.',
+
+    // Academics Section
+    'acad.subtitle': 'برامجنا التعليمية',
+    'acad.title': 'المراحل والمناهج الدراسية',
+    'acad.desc': 'نقدم مناهج متكاملة عبر مرحلتين رئيسيتين، لتأهيل الطلاب للنجاح الأكاديمي والتميز في جميع المستويات.',
+    'acad.early': 'السنوات الأولى',
+    'acad.primary': 'المرحلة الابتدائية (الصفوف 1..6)',
+    'acad.prep': 'المرحلة الإعدادية (الصفوف 1..3)',
+
+    // Contact Form
+    'contact.subtitle': 'قناة الاتصال المباشرة',
+    'contact.title': 'تواصل مباشرة مع إدارة مدرسة نيو لايف',
+    'contact.desc': 'هل لديك استفسارات بشأن القبول والتسجيل أو البرامج الأكاديمية أو زيارة المجمّع؟ فريقنا يجيب خلال 24 ساعة.',
+    'contact.hqs': 'المقر الرئيسي لمجمع المدارس',
+    'contact.loc_lbl': 'عنوان المجمع:',
+    'contact.loc_val': 'شارع التسعين، التجمع الخامس، القاهرة الجديدة، مصر',
+    'contact.phone_lbl': 'خطوط الاتصال المباشر:',
+    'contact.email_lbl': 'البريد الإلكتروني للرد المباشر:',
+    'contact.hours_lbl': 'مواعيد العمل الإدارية:',
+    'contact.hours_val': 'الأحد – الخميس: 07:30 صباحاً – 03:30 مساءً',
+    'contact.form_title': 'أرسل لنا رسالة مباشرة',
+    'contact.first_name': 'الاسم الأول',
+    'contact.last_name': 'اسم العائلة',
+    'contact.email': 'البريد الإلكتروني',
+    'contact.phone': 'رقم الهاتف',
+    'contact.dept': 'القسم المختص بالإستفسار',
+    'contact.dept_adm': 'القبول والتسجيل الجديد (ابتدائي 1..6 وإعدادي 1..3)',
+    'contact.dept_acad': 'المناهج الدراسية والامتحانات',
+    'contact.dept_affairs': 'شؤون الطلاب والسجلات الانضباطية',
+    'contact.dept_gen': 'استفسار إداري عام',
+    'contact.message': 'تفاصيل الرسالة أو الاستفسار',
+    'contact.btn_send': 'إرسال الرسالة والاستفسار ←',
+
+    // Footer
+    'footer.quick': 'روابط سريعة',
+    'footer.acad': 'المراحل الدراسية',
+    'footer.portal': 'بوابة تسجيل الدخول',
+    'footer.rights': '© 2026 مدرسة نيو لايف لغات. جميع الحقوق محفوظة.',
 
     // Portal Navigation
     'portal.dashboard': 'لوحة التحكم',
@@ -152,6 +289,9 @@ const DICTIONARY: Record<Language, Record<string, string>> = {
     'dashboard.new_announcement': 'إعلان جديد',
     'dashboard.add_student': 'إضافة طالب جديد',
     'dashboard.quick_actions': 'إجراءات سريعة',
+    'dashboard.today_overview': 'نظرة عامة على اليوم',
+    'dashboard.stage_perf': 'أداء المراحل الدراسية',
+    'dashboard.upcoming_exams': 'الامتحانات القادمة',
 
     // Public Admissions Page
     'adm.title': 'طلب الالتحاق والقبول بالمدرسة',

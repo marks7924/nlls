@@ -58,6 +58,50 @@ function PortalLayoutInner({ children }: { children: React.ReactNode }) {
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
 
+  const getNavLabel = (label: string) => {
+    const map: Record<string, string> = {
+      'Dashboard': 'portal.dashboard',
+      'My Classes': 'portal.classes',
+      'Classes': 'portal.classes',
+      'Students': 'portal.students',
+      'Parents': 'portal.parents',
+      'Teachers': 'portal.teachers',
+      'Supervisors': 'portal.supervisors',
+      'Subjects': 'portal.subjects',
+      'Timetable': 'portal.timetable',
+      'Homework': 'portal.homework',
+      'Exams': 'portal.exams',
+      'Grades': 'portal.grades',
+      'Academic Results': 'portal.grades',
+      'Attendance': 'portal.attendance',
+      'Materials': 'portal.materials',
+      'Calendar': 'portal.calendar',
+      'Announcements': 'portal.announcements',
+      'Messages': 'portal.messages',
+      'Profile': 'portal.profile',
+      'My Children': 'portal.parents',
+      'Requests': 'portal.requests',
+      'Documents': 'portal.documents',
+      'Performance': 'portal.analytics',
+      'Curriculum': 'portal.subjects',
+      'Reports': 'portal.reports',
+      'Approvals': 'portal.requests',
+      'Student Affairs': 'portal.student_affairs',
+      'Admissions': 'portal.admissions_mgmt',
+      'Events': 'portal.events',
+      'Website': 'portal.website',
+      'Accounts': 'portal.accounts',
+      'Email Center': 'portal.email',
+      'Analytics': 'portal.analytics',
+      'Permissions': 'portal.permissions',
+      'Settings': 'portal.settings',
+      'Audit Logs': 'portal.audit_logs',
+      'System': 'portal.system',
+    };
+    const key = map[label];
+    return key ? t(key) : label;
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 relative transition-colors duration-200">
       {sidebarOpen && (
@@ -110,6 +154,7 @@ function PortalLayoutInner({ children }: { children: React.ReactNode }) {
           <ul className="space-y-0.5">
             {filteredNav.map((item) => {
               const active = isActive(item.href);
+              const navLabel = getNavLabel(item.label);
               return (
                 <li key={item.href}>
                   <Link
@@ -121,11 +166,11 @@ function PortalLayoutInner({ children }: { children: React.ReactNode }) {
                         : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white'
                       }
                     `}
-                    title={collapsed ? item.label : undefined}
+                    title={collapsed ? navLabel : undefined}
                   >
                     <NavIcon name={item.icon} className={`w-[18px] h-[18px] flex-shrink-0 ${active ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-slate-500'}`} />
                     {!collapsed && (
-                      <span className="truncate">{item.label}</span>
+                      <span className="truncate">{navLabel}</span>
                     )}
                     {!collapsed && item.badge !== undefined && item.badge > 0 && (
                       <span className="ml-auto bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-300 text-xs font-semibold px-1.5 py-0.5 rounded-full">
