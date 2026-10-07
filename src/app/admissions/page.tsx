@@ -7,6 +7,7 @@ import {
   Clock, Calendar, ShieldCheck, Mail, AlertCircle 
 } from 'lucide-react';
 import { getStoredContactMessages } from '@/lib/contact-messages';
+import { useLanguageTheme } from '@/lib/language-theme-context';
 
 const VALID_GRADES = [
   { name: 'Primary 1', stage: 'Primary' },
@@ -21,6 +22,7 @@ const VALID_GRADES = [
 ];
 
 export default function PublicAdmissionsPage() {
+  const { lang, theme, toggleLang, toggleTheme, t } = useLanguageTheme();
   const [activeTab, setActiveTab] = useState<'apply' | 'track'>('apply');
   const [step, setStep] = useState(1);
   const [submittedRefCode, setSubmittedRefCode] = useState<string | null>(null);
@@ -99,25 +101,31 @@ export default function PublicAdmissionsPage() {
             />
             <div className="cursor-pointer" onClick={() => window.location.reload()}>
               <span className="font-bold text-white text-base tracking-tight font-heading block">
-                New Life Language School
+                {t('school.title')}
               </span>
               <span className="text-[10px] text-blue-400 font-mono uppercase tracking-widest block">
-                Official Admissions Portal 2026/2027
+                {t('school.portal_sub')}
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={toggleLang}
+              className="text-xs font-bold px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all"
+            >
+              🌐 {lang === 'en' ? 'العربية' : 'English'}
+            </button>
             <button
               onClick={() => setActiveTab('track')}
               className={`text-xs font-bold px-3 py-2 rounded-xl transition-all ${
                 activeTab === 'track' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-300 hover:text-white'
               }`}
             >
-              🔍 Track Status
+              {t('nav.track_status')}
             </button>
             <Link href="/login" className="text-xs font-bold text-slate-300 hover:text-white bg-slate-800 px-3.5 py-2 rounded-xl">
-              Portal Login →
+              {t('nav.portal_login')}
             </Link>
           </div>
         </div>

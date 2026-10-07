@@ -11,8 +11,12 @@
     scroll-behavior: smooth;
   }
 
+  html[dir="rtl"] {
+    font-family: 'Cairo', 'Inter', system-ui, sans-serif;
+  }
+
   body {
-    @apply bg-slate-50 text-slate-800 antialiased min-h-screen;
+    @apply bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 antialiased min-h-screen transition-colors duration-200;
     line-height: 1.6;
   }
 }
@@ -32,6 +36,14 @@
   border-radius: 3px;
 }
 
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth/context";
+import { LanguageThemeProvider } from "@/lib/language-theme-context";
 
 export const metadata: Metadata = {
   title: "New Life Language School | NLLS",
@@ -23,12 +24,14 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-sans antialiased text-slate-800 bg-slate-50">
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+      <body className="font-sans antialiased text-slate-800 bg-slate-50 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-200">
+        <LanguageThemeProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </LanguageThemeProvider>
       </body>
     </html>
   );

@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useState } from 'react';
 import { useAuth } from '@/lib/auth/context';
+import { useLanguageTheme } from '@/lib/language-theme-context';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { PORTAL_NAV, ROLE_LABELS } from '@/lib/navigation';
@@ -9,6 +10,7 @@ import { ROLE_CONFIG } from '@/lib/auth/demo-data';
 
 function PortalLayoutInner({ children }: { children: React.ReactNode }) {
   const { user, isLoading, logout, hasPermission } = useAuth();
+  const { lang, theme, toggleLang, toggleTheme, t } = useLanguageTheme();
   const router = useRouter();
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -32,7 +34,7 @@ function PortalLayoutInner({ children }: { children: React.ReactNode }) {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
         <div className="text-center">
           <img
             src="/nlls.png"
@@ -41,7 +43,7 @@ function PortalLayoutInner({ children }: { children: React.ReactNode }) {
             onClick={() => window.location.reload()}
             title="Reload Page"
           />
-          <p className="text-sm text-gray-500 font-bold">Loading portal...</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 font-bold">Loading portal...</p>
         </div>
       </div>
     );
@@ -57,10 +59,10 @@ function PortalLayoutInner({ children }: { children: React.ReactNode }) {
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
 
   return (
-    <div className="min-h-screen bg-gray-50 relative">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 relative transition-colors duration-200">
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/30 lg:hidden"
+          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -68,15 +70,16 @@ function PortalLayoutInner({ children }: { children: React.ReactNode }) {
       {/* Sidebar */}
       <aside
         className={`
-          fixed top-0 left-0 bottom-0 z-50
-          bg-white border-r border-gray-200
+          fixed top-0 bottom-0 z-50
+          bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800
           transition-all duration-200 ease-in-out
           ${collapsed ? 'w-[72px]' : 'w-[260px]'}
-          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+          ${sidebarOpen ? 'translate-x-0' : (lang === 'ar' ? 'translate-x-full' : '-translate-x-full')}
           lg:translate-x-0
+          ${lang === 'ar' ? 'right-0 border-l border-r-0' : 'left-0'}
         `}
       >
-        <div className="h-16 border-b border-gray-100 flex items-center justify-between px-4">
+        <div className="h-16 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between px-4">
           <div className="flex items-center gap-2.5 min-w-0">
             <img
               src="/nlls.png"
@@ -87,14 +90,14 @@ function PortalLayoutInner({ children }: { children: React.ReactNode }) {
             />
             {!collapsed && (
               <div className="min-w-0">
-                <p className="text-sm font-bold text-gray-900 leading-tight truncate">NLLS</p>
-                <p className="text-[10px] text-gray-400 truncate">School Portal</p>
+                <p className="text-sm font-bold text-slate-900 dark:text-white leading-tight truncate">NLLS</p>
+                <p className="text-[10px] text-slate-400 truncate">{t('school.portal_sub')}</p>
               </div>
             )}
           </div>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="lg:hidden p-1.5 text-gray-400 hover:text-gray-600"
+            className="lg:hidden p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-white"
             aria-label="Close sidebar"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,20 +115,20 @@ function PortalLayoutInner({ children }: { children: React.ReactNode }) {
                   <Link
                     href={item.href}
                     className={`
-                      flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors
+                      flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-all
                       ${active
-                        ? 'bg-brand-50 text-brand-700 border-l-[3px] border-brand-600 -ml-[3px] pl-[calc(0.75rem+3px)]'
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                        ? 'bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 border-l-[3px] border-blue-600 dark:border-blue-500 -ml-[3px] pl-[calc(0.75rem+3px)] font-bold'
+                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white'
                       }
                     `}
                     title={collapsed ? item.label : undefined}
                   >
-                    <NavIcon name={item.icon} className={`w-[18px] h-[18px] flex-shrink-0 ${active ? 'text-brand-600' : 'text-gray-400'}`} />
+                    <NavIcon name={item.icon} className={`w-[18px] h-[18px] flex-shrink-0 ${active ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-slate-500'}`} />
                     {!collapsed && (
                       <span className="truncate">{item.label}</span>
                     )}
                     {!collapsed && item.badge !== undefined && item.badge > 0 && (
-                      <span className="ml-auto bg-brand-100 text-brand-700 text-xs font-semibold px-1.5 py-0.5 rounded-full">
+                      <span className="ml-auto bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-300 text-xs font-semibold px-1.5 py-0.5 rounded-full">
                         {item.badge}
                       </span>
                     )}
@@ -136,19 +139,19 @@ function PortalLayoutInner({ children }: { children: React.ReactNode }) {
           </ul>
         </nav>
 
-        <div className="border-t border-gray-100 p-3">
+        <div className="border-t border-slate-100 dark:border-slate-800 p-3">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 bg-brand-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <span className="text-brand-700 text-xs font-bold">
+            <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/60 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-blue-700 dark:text-blue-300 text-xs font-bold">
                 {user.profile.first_name[0]}{user.profile.last_name[0]}
               </span>
             </div>
             {!collapsed && (
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-gray-900 truncate">
+                <p className="text-sm font-medium text-slate-900 dark:text-white truncate">
                   {user.profile.first_name} {user.profile.last_name}
                 </p>
-                <p className="text-[11px] text-gray-400 truncate">{ROLE_LABELS[user.role]}</p>
+                <p className="text-[11px] text-slate-400 truncate">{ROLE_LABELS[user.role]}</p>
               </div>
             )}
           </div>
@@ -156,13 +159,13 @@ function PortalLayoutInner({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Main Content */}
-      <div className={`transition-all duration-200 ${collapsed ? 'lg:ml-[72px]' : 'lg:ml-[260px]'}`}>
-        <header className="sticky top-0 z-30 bg-white border-b border-gray-200 h-16">
+      <div className={`transition-all duration-200 ${collapsed ? (lang === 'ar' ? 'lg:mr-[72px]' : 'lg:ml-[72px]') : (lang === 'ar' ? 'lg:mr-[260px]' : 'lg:ml-[260px]')}`}>
+        <header className="sticky top-0 z-30 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 h-16">
           <div className="flex items-center justify-between h-full px-4 lg:px-6">
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="lg:hidden p-2 text-gray-500 hover:text-gray-700 rounded-md"
+                className="lg:hidden p-2 text-slate-500 hover:text-slate-700 dark:hover:text-white rounded-md"
                 aria-label="Open sidebar"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -172,7 +175,7 @@ function PortalLayoutInner({ children }: { children: React.ReactNode }) {
 
               <button
                 onClick={() => setCollapsed(!collapsed)}
-                className="hidden lg:flex p-2 text-gray-400 hover:text-gray-600 rounded-md"
+                className="hidden lg:flex p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white rounded-md"
                 aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
               >
                 <svg className={`w-4 h-4 transition-transform ${collapsed ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -189,14 +192,32 @@ function PortalLayoutInner({ children }: { children: React.ReactNode }) {
                   title="Click to Reload Page"
                 />
                 <div className="hidden sm:block">
-                  <p className="text-xs text-gray-400 font-bold">{ROLE_LABELS[user.role]} Portal</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-bold">{ROLE_LABELS[user.role]} Portal</p>
                 </div>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
+              {/* Language Switcher Button */}
               <button
-                className="relative p-2 text-gray-400 hover:text-gray-600 rounded-md"
+                onClick={toggleLang}
+                className="text-xs font-bold px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700 flex items-center gap-1.5"
+                title="Switch Language / تغيير اللغة"
+              >
+                🌐 {lang === 'en' ? 'العربية' : 'English'}
+              </button>
+
+              {/* Dark / Light Mode Toggle Button */}
+              <button
+                onClick={toggleTheme}
+                className="text-xs font-bold px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700 flex items-center gap-1.5"
+                title="Toggle Theme"
+              >
+                {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+              </button>
+
+              <button
+                className="relative p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white rounded-md"
                 aria-label="Notifications"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -205,56 +226,56 @@ function PortalLayoutInner({ children }: { children: React.ReactNode }) {
                 <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
               </button>
 
-              <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-accent-50 border border-accent-200 rounded-md">
-                <svg className="w-3.5 h-3.5 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 rounded-md">
+                <svg className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                <span className="text-xs font-medium text-accent-700">2026/2027</span>
+                <span className="text-xs font-medium text-amber-700 dark:text-amber-400">2026/2027</span>
               </div>
 
               <div className="relative group">
-                <button className="flex items-center gap-2 p-1.5 rounded-md hover:bg-gray-50 transition-colors">
-                  <div className="w-8 h-8 bg-brand-100 rounded-full flex items-center justify-center">
-                    <span className="text-brand-700 text-xs font-bold">
+                <button className="flex items-center gap-2 p-1.5 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                  <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/60 rounded-full flex items-center justify-center">
+                    <span className="text-blue-700 dark:text-blue-300 text-xs font-bold">
                       {user.profile.first_name[0]}{user.profile.last_name[0]}
                     </span>
                   </div>
-                  <svg className="w-4 h-4 text-gray-400 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-slate-400 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
 
-                <div className="absolute right-0 top-full mt-1 w-56 bg-white border border-gray-200 rounded-lg shadow-elevated opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
-                  <div className="p-3 border-b border-gray-100">
-                    <p className="text-sm font-medium text-gray-900">
+                <div className="absolute right-0 top-full mt-1 w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                  <div className="p-3 border-b border-slate-100 dark:border-slate-800">
+                    <p className="text-sm font-medium text-slate-900 dark:text-white">
                       {user.profile.first_name} {user.profile.last_name}
                     </p>
-                    <p className="text-xs text-gray-500">{user.email}</p>
-                    <span className="inline-block mt-1 text-[10px] font-medium text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded">
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{user.email}</p>
+                    <span className="inline-block mt-1 text-[10px] font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950 px-1.5 py-0.5 rounded">
                       {ROLE_LABELS[user.role]}
                     </span>
                   </div>
                   <div className="p-1.5">
                     <Link
                       href="/portal/profile"
-                      className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
+                      className="flex items-center gap-2 px-3 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md"
                     >
-                      <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
-                      Profile
+                      {t('portal.profile')}
                     </Link>
                     <button
                       onClick={() => {
                         logout();
                         router.push('/login');
                       }}
-                      className="flex items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md w-full text-left"
+                      className="flex items-center gap-2 px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-md w-full text-left"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                       </svg>
-                      Sign Out
+                      {t('portal.sign_out')}
                     </button>
                   </div>
                 </div>
